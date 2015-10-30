@@ -7,6 +7,10 @@ from applications.models import Producto
 
 class ProductoAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,              {'fields': ['nombre', 'descripcion']})
+        (None,              {'fields': ['nombre', 
+                                        'descripcion', 
+                                        'imagen', 
+                                        'precio', 
+                                        'fecha_publicacion']})
     ]
     list_display = ('id', 'nombre','descripcion', 'imagen')
