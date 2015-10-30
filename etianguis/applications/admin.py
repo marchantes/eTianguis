@@ -6,4 +6,7 @@ from applications.models import Producto
 @admin.register(Producto)
 
 class ProductoAdmin(admin.ModelAdmin):
-  list_display = ('id', 'nombre','descripcion', 'imagen')
+    fieldsets = [
+        (None,              {'fields': ['nombre', 'descripcion']})
+    ]
+    list_display = ('id', 'nombre','descripcion', 'imagen')
