@@ -14,6 +14,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=500)
     imagen = models.ImageField()
     precio = models.PositiveIntegerField()
+    fecha_publicacion = models.DateTimeField()
 
 class Transaccion(models.Model):
     id_producto = models.ForeignKey('Producto')
