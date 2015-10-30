@@ -16,6 +16,9 @@ class Producto(models.Model):
     precio = models.PositiveIntegerField()
     fecha_publicacion = models.DateTimeField()
 
+    def __str__(self):
+        return self.nombre, self.descripcion, self.precio
+
 class Transaccion(models.Model):
     id_producto = models.ForeignKey('Producto')
     id_usuario = models.ForeignKey('Usuario')
