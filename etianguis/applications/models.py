@@ -1,15 +1,9 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=50)
-    appellido = models.CharField(max_length=50)
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
 
 class Producto(models.Model):
-    id_usuario = models.ForeignKey('Usuario')
+    id_usuario = models.ForeignKey(User, default=1)
     nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=500)
     imagen = models.ImageField()
@@ -17,10 +11,10 @@ class Producto(models.Model):
     fecha_publicacion = models.DateTimeField()
 
     def __str__(self):
-        return self.nombre, self.descripcion, self.precio
+        return self.nombre
 
 class Transaccion(models.Model):
     id_producto = models.ForeignKey('Producto')
-    id_usuario = models.ForeignKey('Usuario')
+    id_usuario = models.ForeignKey(User)
     fecha = models.DateField()
     cantidad = models.PositiveIntegerField()
