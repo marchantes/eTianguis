@@ -21,7 +21,7 @@ def user_login(request):
                 login(request, user)
                 return redirect('/')
             else:
-                context['meesage'] = "El usuario existe pero no está activo"
+                context['message'] = "El usuario existe pero no está activo"
         else:
             context['message'] = "No existe el usuario"
     return render(request, 'applications/index.html', context)
