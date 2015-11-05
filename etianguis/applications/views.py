@@ -4,10 +4,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from applications.models import Producto
 
-def index(request):
-    return render(request, 'applications/index.html')
-
+class IndexView(TemplateView):
+    template_name = "applications/index.html"
+"""
 def user_login(request):
     login_form = AuthenticationForm()
     context = {'login_form': login_form, }
@@ -44,3 +47,8 @@ def user_signup(request):
             userprofile.save()
             return redirect('/')
     return render(request, 'applications/signup.html', context)
+"""
+
+class ProductCreate(CreateView):
+    model = Producto
+    fields = ['nombre', 'descripcion', 'imagen', 'precio']
