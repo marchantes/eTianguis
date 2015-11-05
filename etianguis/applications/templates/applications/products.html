@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Products</h1>
+	<ul>
+		{% for product in object_list %}
+		<li>{{ product.fecha_publicacion|date }} - {{ product.nombre }}
+		<figure>
+			<img src="{{ product.imagen }}">
+		</figure>
+		</li>
+		{% empty %}
+		<li>No articles yet.</li>
+		{% endfor %}
+	</ul>
+	<a href="{% url 'applications:product_create'%}">Add Product</a>
+	<a href="logout">Logout</a>
+</body>
+</html>
