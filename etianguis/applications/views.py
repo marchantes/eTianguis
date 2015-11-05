@@ -52,3 +52,10 @@ def user_signup(request):
 class ProductCreate(CreateView):
     model = Producto
     fields = ['nombre', 'descripcion', 'imagen', 'precio']
+    success_url = "/applications/"
+
+class UserCreate(CreateView):
+    model = User
+    template_name = "applications/user_form.html"
+    fields = ['first_name', 'last_name', 'email', 'username', 'password']
+    success_url = "/applications/"
