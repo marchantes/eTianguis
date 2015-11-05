@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def index(request):
-    template = loader.get_template('applications/index.html')
-    return HttpResponse(template.render(context))
+    return render(request, 'applications/index.html')
 
 def user_login(request):
     login_form = AuthenticationForm()
@@ -25,7 +24,7 @@ def user_login(request):
                 context['message'] = "El usuario existe pero no está activo"
         else:
             context['message'] = "No existe el usuario"
-    return render(request, 'applications/index.html', context)
+    return render(request, 'applications/login.html', context)
 
 def user_signup(request):
     signup_form = UserCreationForm()
