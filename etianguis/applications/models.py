@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
 
 class Producto(models.Model):
     id_usuario = models.ForeignKey(User, default=1)
@@ -8,7 +7,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=500)
     imagen = models.ImageField(null=True, blank=True)
     precio = models.PositiveIntegerField()
-    fecha_publicacion = models.DateTimeField(default=datetime.datetime.now())
+    fecha_publicacion = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return self.nombre
