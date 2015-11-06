@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView, ListView
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from applications.models import Producto
 from django.contrib.auth.decorators import login_required
@@ -36,9 +36,8 @@ class ProductList(ListView):
         return context
 
 class UserCreate(CreateView):
-    model = User
+    form_class = UserCreationForm
     template_name = "applications/user_form.html"
-    fields = ['first_name', 'last_name', 'email', 'username', 'password']
     success_url = reverse_lazy('applications:index')
 
 class UserLogin(FormView):
