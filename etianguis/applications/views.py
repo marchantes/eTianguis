@@ -22,7 +22,7 @@ class ProductCreate(CreateView):
     
     model = Producto
     fields = ['nombre', 'descripcion', 'imagen', 'precio']
-    success_url = reverse_lazy("product")
+    success_url = reverse_lazy('applications:product')
 
 class ProductList(ListView):
     model = Producto
@@ -39,12 +39,12 @@ class UserCreate(CreateView):
     model = User
     template_name = "applications/user_form.html"
     fields = ['first_name', 'last_name', 'email', 'username', 'password']
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy('applications:index')
 
 class UserLogin(FormView):
     form_class = AuthenticationForm
     template_name = "applications/login.html"
-    success_url = reverse_lazy("product")
+    success_url = reverse_lazy('applications:product')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
