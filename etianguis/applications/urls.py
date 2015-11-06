@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from applications.views import IndexView, ProductCreate, ProductList, UserCreate, UserLogin, UserLogout
+from applications.views import *
 
 urlpatterns = [
     url(r'^login/', UserLogin.as_view(), name='login'),
