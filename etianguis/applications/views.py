@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.utils import timezone
+from django.views.generic.base import RedirectView
 
 class IndexView(TemplateView):
     template_name = "applications/index.html"
@@ -54,3 +55,10 @@ class UserLogin(FormView):
     def form_valid(self, form):
         login(self.request, form.get_user())
         return super(UserLogin, self).form_valid(form)
+
+class UserLogout(RedirectView):
+    pattern_name = 'applications:index'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(UserLogout, self).get(request, *args, **kwargs)
