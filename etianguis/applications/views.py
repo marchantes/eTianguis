@@ -9,13 +9,14 @@ from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.utils import timezone
 from django.views.generic.base import RedirectView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class IndexView(TemplateView):
     template_name = "applications/index.html"
 
 
-class ProductCreate(CreateView):
+class ProductCreate(SuccessMessageMixin, CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -24,6 +25,7 @@ class ProductCreate(CreateView):
     model = Producto
     fields = ['nombre', 'descripcion', 'imagen', 'precio']
     success_url = reverse_lazy('applications:product')
+    success_message = "Your product was created successfully"
 
 
 class ProductList(ListView):
@@ -40,16 +42,18 @@ class ProductList(ListView):
         return context
 
 
-class UserCreate(CreateView):
+class UserCreate(SuccessMessageMixin, CreateView):
     form_class = UserCreationForm
     template_name = "applications/user_form.html"
     success_url = reverse_lazy('applications:index')
+    success_message = "User was created successfully"
 
 
-class UserLogin(FormView):
+class UserLogin(SuccessMessageMixin, FormView):
     form_class = AuthenticationForm
     template_name = "applications/login.html"
     success_url = reverse_lazy('applications:product')
+    success_message = "Welcome back %(username)s!"
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -62,8 +66,9 @@ class UserLogin(FormView):
         return super(UserLogin, self).form_valid(form)
 
 
-class UserLogout(RedirectView):
+class UserLogout(SuccessMessageMixin, RedirectView):
     pattern_name = 'applications:index'
+    success_message = "Farewell, dear user."
 
     def get(self, request, *args, **kwargs):
         logout(request)
