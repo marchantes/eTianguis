@@ -16,7 +16,11 @@
 		{% for product in object_list %}
 		<li>{{ product.fecha_publicacion|date }} - {{ product.nombre }}
 		<figure>
-			<img src="{{ product.imagen }}">
+			{% if product.imagen %}
+			<img src="{{ product.imagen.url }}">
+			{% else %}
+			<img src="http://www.404notfound.fr/assets/images/pages/img/androiddev101.jpg">
+			{% endif %}
 		</figure>
 		</li>
 		{% empty %}
