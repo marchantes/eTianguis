@@ -27,6 +27,11 @@ class ProductCreate(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('applications:product')
     success_message = "Your product was created successfully"
 
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.id_usuario = user
+        return super(ProductCreate, self).form_valid(form)
+
 
 class ProductList(ListView):
     model = Producto
@@ -66,9 +71,8 @@ class UserLogin(SuccessMessageMixin, FormView):
         return super(UserLogin, self).form_valid(form)
 
 
-class UserLogout(SuccessMessageMixin, RedirectView):
+class UserLogout(RedirectView):
     pattern_name = 'applications:index'
-    success_message = "Farewell, dear user."
 
     def get(self, request, *args, **kwargs):
         logout(request)
