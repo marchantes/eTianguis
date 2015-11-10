@@ -9,6 +9,7 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to='products', blank=True)
     precio = models.PositiveIntegerField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True, blank=True)
+    cantidad = models.IntegerField(default=1)
 
     def __str__(self):
         return self.nombre
