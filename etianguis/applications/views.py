@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, FormView
 from applications.models import Producto
@@ -44,6 +44,14 @@ class ProductList(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProductList, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
+        return context
+
+
+class ProductDetail(SuccessMessageMixin, DetailView):
+    model = Producto
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
         return context
 
 

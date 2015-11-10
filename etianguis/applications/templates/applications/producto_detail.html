@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles</title>
+</head>
+<body>
+    <h1>{{ producto.nombre}}</h1>
+    <p>{{ producto.descripcion}}</p>
+    <figure>
+        {% if producto.imagen %}
+        <img src="{{ producto.imagen.url }}">
+        {% else %}
+        <img src="http://www.404notfound.fr/assets/images/pages/img/androiddev101.jpg">
+        {% endif %}
+    </figure>
+    <h3>Precio: ${{ producto.precio }}</h3>
+    <button>Comprar</button>
+</body>
+</html>
