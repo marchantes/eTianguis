@@ -13,4 +13,5 @@ class ProductoAdmin(admin.ModelAdmin):
                                         'precio']})
     ]
     list_display = ('id_usuario', 'id', 'nombre',
-                    'descripcion', 'imagen', 'precio', 'fecha_publicacion')
+                    'descripcion', 'imagen', 'cantidad', 'precio',
+                    'fecha_publicacion')
