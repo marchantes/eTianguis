@@ -10,8 +10,7 @@ class ProductoAdmin(admin.ModelAdmin):
         (None,              {'fields': ['nombre',
                                         'descripcion',
                                         'imagen',
-                                        'precio',
-                                        'fecha_publicacion']})
+                                        'precio']})
     ]
     list_display = (
         'id_usuario', 'id', 'nombre', 'descripcion', 'imagen', 'precio', 'fecha_publicacion')
