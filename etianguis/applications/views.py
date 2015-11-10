@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils import timezone
 from django.views.generic.base import RedirectView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
 
 
 class IndexView(TemplateView):
@@ -39,12 +40,9 @@ class ProductList(ListView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.request.user.id)
+        self.queryset = Producto.objects.exclude(id_usuario=user)
         return super(ProductList, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(ProductList, self).get_context_data(**kwargs)
-        context['now'] = timezone.now()
-        return context
 
 
 class ProductDetail(SuccessMessageMixin, DetailView):
