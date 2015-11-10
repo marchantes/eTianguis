@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>{{ producto.nombre}}</h1>
+    <h3>Publicado por: {{ producto.id_usuario }}</h3>
     <p>{{ producto.descripcion}}</p>
     <figure>
         {% if producto.imagen %}
