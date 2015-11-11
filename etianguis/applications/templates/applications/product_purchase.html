@@ -4,9 +4,10 @@
 	<title></title>
 </head>
 <body>
-    <form action="" method="get">
+    <form action="" method="post">
         {% csrf_token %}
-        <input type="submit" placeholder="Comprar">
+        {{ form.as_p }}
+        <input type="submit" placeholder="Comprar"/>
     </form>
 </body>
 </html>

@@ -64,7 +64,7 @@ class ProductPurchase(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        # user = self.request.user
+        user = self.request.user
         print(request)
         return super(ProductPurchase, self).dispatch(request, *args, **kwargs)
 
