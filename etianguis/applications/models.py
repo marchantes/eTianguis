@@ -17,6 +17,6 @@ class Producto(models.Model):
 
 class Transaccion(models.Model):
     id_producto = models.ForeignKey('Producto')
-    id_usuario = models.ForeignKey(User)
-    fecha = models.DateField()
+    id_usuario = models.ForeignKey(User, default=1)
+    fecha = models.DateField(auto_now_add=True, blank=True)
     cantidad = models.PositiveIntegerField()

@@ -15,6 +15,6 @@
         {% endif %}
     </figure>
     <h3>Precio: ${{ producto.precio }}</h3>
-    <button>Comprar</button>
+    <a href="{% url 'applications:product_purchase' producto.id %}">¡Lo quiero!</a>
 </body>
 </html>

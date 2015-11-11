@@ -3,11 +3,10 @@ from django.contrib.auth import login, logout
 from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.views.generic.edit import CreateView, FormView
-from applications.models import Producto
+from applications.models import Producto, Transaccion
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
-from django.utils import timezone
 from django.views.generic.base import RedirectView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
@@ -55,6 +54,19 @@ class ProductDetail(SuccessMessageMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetail, self).get_context_data(**kwargs)
         return context
+
+
+class ProductPurchase(CreateView):
+    model = Transaccion
+    fields = ['cantidad']
+    success_url = reverse_lazy('applications:product')
+    template_name = "applications/product_purchase.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        # user = self.request.user
+        print(request)
+        return super(ProductPurchase, self).dispatch(request, *args, **kwargs)
 
 
 class UserCreate(SuccessMessageMixin, CreateView):
