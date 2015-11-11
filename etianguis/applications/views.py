@@ -39,8 +39,9 @@ class ProductList(ListView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        user = User.objects.get(pk=self.request.user.id)
-        self.queryset = Producto.objects.exclude(id_usuario=user)
+        user = self.request.user
+        self.queryset = Producto.objects.exclude(
+            id_usuario=user).exclude(cantidad=0)
         return super(ProductList, self).dispatch(request, *args, **kwargs)
 
 
@@ -64,9 +65,20 @@ class ProductPurchase(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        user = self.request.user
-        print(request)
+        producto = Producto.objects.get(pk=self.kwargs['pk'])
+        producto.cantidad -= 1
         return super(ProductPurchase, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        user = self.request.user
+        actual_primary_key = self.kwargs['pk']
+        producto = Producto.objects.get(pk=actual_primary_key)
+        form.instance.id_usuario = user
+        form.instance.id_producto = producto
+        producto.cantidad -= 1
+        producto.save()
+        self.Transaccion = form.save()
+        return super(ProductPurchase, self).form_valid(form)
 
 
 class UserCreate(SuccessMessageMixin, CreateView):
