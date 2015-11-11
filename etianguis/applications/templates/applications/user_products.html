@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    <h1>Your Products</h1>
+    <ul>
+        {% for product in object_list %}
+        <li><a href="{% url 'applications:product_delete' product.id %}">{{ product.nombre }}</p>
+        <figure>
+            {% if product.imagen %}
+            <img src="{{ product.imagen.url }}">
+            {% else %}
+            <img src="http://www.404notfound.fr/assets/images/pages/img/androiddev101.jpg">
+            {% endif %}
+        </figure>
+        </li>
+        {% empty %}
+        <li>No articles yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'applications:product_create' %}">Add Product</a>
+    <a href="{% url 'applications:products' %}">Go back</a>
+</body>
+</html>

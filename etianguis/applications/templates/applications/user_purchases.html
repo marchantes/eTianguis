@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchases</title>
+</head>
+<body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    <h1>Your Purchases</h1>
+    <ul>
+        {% for purchases in object_list %}
+        <li><p>{{ purchases.id_producto }}</p>
+        </li>
+        {% empty %}
+        <li>No articles yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'applications:product_create' %}">Add Product</a>
+    <a href="{% url 'applications:products' %}">Go Back</a>
+</body>
+</html>

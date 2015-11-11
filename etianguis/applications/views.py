@@ -2,14 +2,14 @@ from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.views.generic import TemplateView, ListView, DetailView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, DeleteView, FormView
 from applications.models import Producto, Transaccion
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.base import RedirectView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
 class IndexView(TemplateView):
@@ -24,7 +24,7 @@ class ProductCreate(SuccessMessageMixin, CreateView):
 
     model = Producto
     fields = ['nombre', 'descripcion', 'imagen', 'precio']
-    success_url = reverse_lazy('applications:product')
+    success_url = reverse_lazy('applications:products')
     success_message = "Your product was created successfully"
 
     def form_valid(self, form):
@@ -57,10 +57,16 @@ class ProductDetail(SuccessMessageMixin, DetailView):
         return context
 
 
+class ProductDelete(DeleteView):
+    model = Producto
+    success_url = reverse_lazy('applications:products')
+    template_name = "applications/confirm_delete.html"
+
+
 class ProductPurchase(CreateView):
     model = Transaccion
     fields = ['cantidad']
-    success_url = reverse_lazy('applications:product')
+    success_url = reverse_lazy('applications:products')
     template_name = "applications/product_purchase.html"
 
     @method_decorator(login_required)
@@ -91,7 +97,7 @@ class UserCreate(SuccessMessageMixin, CreateView):
 class UserLogin(SuccessMessageMixin, FormView):
     form_class = AuthenticationForm
     template_name = "applications/login.html"
-    success_url = reverse_lazy('applications:product')
+    success_url = reverse_lazy('applications:products')
     success_message = "Welcome back %(username)s!"
 
     def dispatch(self, request, *args, **kwargs):
@@ -111,3 +117,25 @@ class UserLogout(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(UserLogout, self).get(request, *args, **kwargs)
+
+
+class UserProducts(ListView):
+    model = Producto
+    template_name = "applications/user_products.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        user = self.request.user
+        self.queryset = Producto.objects.filter(id_usuario=user)
+        return super(UserProducts, self).dispatch(request, *args, **kwargs)
+
+
+class UserPurchases(ListView):
+    model = Transaccion
+    template_name = "applications/user_purchases.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        user = self.request.user
+        self.queryset = Transaccion.objects.filter(id_usuario=user)
+        return super(UserPurchases, self).dispatch(request, *args, **kwargs)

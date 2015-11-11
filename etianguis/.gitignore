@@ -4,5 +4,6 @@
 .DS_Store
 *.png
 *.jpg
+*.JPG
 venv
 _pychache_
