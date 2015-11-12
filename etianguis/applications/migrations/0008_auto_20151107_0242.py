@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='producto',
             name='imagen',
-            field=models.ImageField(default=datetime.datetime(2015, 11, 7, 2, 42, 24, 893018, tzinfo=utc), upload_to=b'products', blank=True),
+            field=models.ImageField(default=1, upload_to=b'products', blank=True),
             preserve_default=False,
         ),
     ]

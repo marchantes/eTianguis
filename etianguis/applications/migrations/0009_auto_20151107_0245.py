@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='producto',
             name='id_usuario',
-            field=models.ForeignKey(default=datetime.datetime(2015, 11, 7, 2, 45, 23, 686624, tzinfo=utc), to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(default=1, to=settings.AUTH_USER_MODEL),
             preserve_default=False,
         ),
     ]
