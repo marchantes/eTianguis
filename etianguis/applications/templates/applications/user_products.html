@@ -14,7 +14,12 @@
     <h1>Your Products</h1>
     <ul>
         {% for product in object_list %}
-        <li><a href="{% url 'applications:product_delete' product.id %}">{{ product.nombre }}</p>
+        {% if product.cantidad == 0 %}
+        <li><p>{{ product.nombre }}</p>
+        <h3>Vendido</h3>
+        {% else %}
+        <li><a href="{% url 'applications:product_delete' product.id %}">{{ product.nombre }}</a>
+        {% endif %}
         <figure>
             {% if product.imagen %}
             <img src="{{ product.imagen.url }}">
