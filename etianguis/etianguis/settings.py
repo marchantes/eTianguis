@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'applications',
     'djangobower',
+    'rest_framework',
+    'api',
 )
 
 MIDDLEWARE_CLASSES = (
