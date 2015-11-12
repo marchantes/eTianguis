@@ -57,16 +57,18 @@ class ProductDetail(SuccessMessageMixin, DetailView):
         return context
 
 
-class ProductDelete(DeleteView):
+class ProductDelete(SuccessMessageMixin, DeleteView):
     model = Producto
     success_url = reverse_lazy('applications:products')
+    success_message = "Product deleted successfully."
     template_name = "applications/confirm_delete.html"
 
 
-class ProductPurchase(CreateView):
+class ProductPurchase(SuccessMessageMixin, CreateView):
     model = Transaccion
     fields = ['cantidad']
     success_url = reverse_lazy('applications:products')
+    success_message = "Product purchased successfully."
     template_name = "applications/product_purchase.html"
 
     @method_decorator(login_required)
