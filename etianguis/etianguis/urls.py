@@ -25,3 +25,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/', include('api.urls', namespace="api")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    #   API Login endpoint
+    url(r'^auth/', include('rest_framework.urls',
+                           namespace='rest_framework')),
+]
